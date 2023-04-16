@@ -9,7 +9,7 @@ function Layout({ children }) {
                 <Link href="/">dijital nüsha</Link>
             </h1>
             <SearchBox />
-            <ul className='bg-main text-white py-4 text-base flex flex-row gap-10 items-center justify-center'>
+            <ul className='bg-main text-white py-3 text-base flex flex-row gap-10 items-center justify-center'>
                 <li className='hover:opacity-80 transition-colors'>
                     <Link href="/">Anasayfa</Link>
                 </li>
