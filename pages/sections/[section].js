@@ -1,5 +1,5 @@
-import ReactHtmlParser from 'react-html-parser';
 import { Virtuoso } from 'react-virtuoso'
+import parse from 'html-react-parser';
 
 export async function getStaticPaths() {
     const paths = [
@@ -52,7 +52,7 @@ export default function Section({ postData }) {
                             <p className="font-extrabold underline underline-offset-4 text-xl">{row.title}</p>
                             <p className='text-xl rounded py-4 px-4 bg-main text-black bg-opacity-10'>{row.arabic}</p>
                             <hr className=' border border-main w-full' />
-                            <div className='text-base '>{ReactHtmlParser(row.turkish)}</div>
+                            <div className='text-base'>{parse(row.turkish)}</div>
                         </div>
                     )
                 }
