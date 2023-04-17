@@ -1,5 +1,6 @@
 import { Virtuoso } from 'react-virtuoso'
 import parse from 'html-react-parser';
+import ContentLoader from 'react-content-loader';
 
 export async function getStaticPaths() {
     const paths = [
@@ -21,35 +22,44 @@ export async function getStaticPaths() {
     ];
     return {
         paths,
-        fallback: false,
+        fallback: "blocking",
     };
 }
 
+export const paginate = (items, pageNumber, pageSize) => {
+    const startIndex = (pageNumber - 1) * pageSize;
+    return items.slice(startIndex, startIndex + pageSize);
+};
 
 export async function getStaticProps({ params }) {
     const postData = await fetch(`https://riyaz.herokuapp.com/get`)
         .then(res => res.json())
         .then(json => json.data)
+    const currentPage = 1;
+    const pageSize = 10;
+    const paginatedData = paginate(postData, currentPage, pageSize);
     return {
         props: {
-            postData
-        }
+            data: paginatedData,
+            currentPage,
+            pageSize,
+        },
     };
 }
 
-export default function Section({ postData }) {
+export default function Section({ data }) {
 
-
-
+    if (!data) {
+        return <ContentLoader />
+    }
     return (
         <div className="flex flex-col gap-4">
-            {/* {JSON.stringify(postData, null, 2)} */}
-            <Virtuoso style={{ height: "100vh" }} totalCount={postData.length} itemContent={
+            <Virtuoso style={{ height: "100vh" }} totalCount={data.length} itemContent={
                 (index) => {
-                    const row = postData[index];
+                    const row = data[index];
                     return (
-                        <div key={index} className="bg-main bg-opacity-10 text-main font-medium rounded w-2/3 px-8 py-4 mb-8 mx-auto border-2 border-main flex flex-col items-center justify-center gap-4">
-                            <p className="font-extrabold underline underline-offset-4 text-xl">{row.title}</p>
+                        <div key={index} className="bg-main bg-opacity-10 font-medium rounded w-2/3 px-8 py-4 mb-8 mx-auto border-2 border-main flex flex-col items-center justify-center gap-4">
+                            <p className="font-extrabold underline underline-offset-4 text-xl text-main">{row.title}</p>
                             <p className='text-xl rounded py-4 px-4 bg-main text-black bg-opacity-10'>{row.arabic}</p>
                             <hr className=' border border-main w-full' />
                             <div className='text-base'>{parse(row.turkish)}</div>

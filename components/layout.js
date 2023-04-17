@@ -14,13 +14,13 @@ function Layout({ children }) {
                     <Link href="/">Anasayfa</Link>
                 </li>
                 <li className='hover:opacity-80 transition-colors'>
-                    <Link href="/sections/hadis">Hadis</Link>
+                    <Link href="/hadis">Hadis</Link>
                 </li>
                 <li className='hover:opacity-80 transition-colors'>
-                    <Link href="/sections/tefsir">Tefsir</Link>
+                    <Link href="/tefsir">Tefsir</Link>
                 </li>
                 <li className='hover:opacity-80 transition-colors'>
-                    <Link href="/sections/meal">Meal</Link>
+                    <Link href="/meal">Meal</Link>
                 </li>
             </ul>
             <main className="py-10 text-center">{children}</main>
