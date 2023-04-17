@@ -1,5 +1,4 @@
 import ReactHtmlParser from 'react-html-parser';
-import Card from '@/components/card';
 import { Virtuoso } from 'react-virtuoso'
 
 export async function getStaticPaths() {
